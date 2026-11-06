@@ -3,6 +3,14 @@ import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import axios from 'axios';
+import { API_URL } from '../config';
+
+// Student photo URL එක backend URL එකට ගැලපෙන විදියට හදනවා
+const getPhotoSrc = (url) => {
+  if (!url) return 'https://via.placeholder.com/80';
+  if (url.startsWith('http')) return url.replace('http://localhost:5000', API_URL);
+  return `${API_URL}${url.startsWith('/') ? '' : '/'}${url}`;
+};
 
 const ScanAttendance = () => {
   const { user, logout } = useContext(AuthContext);
@@ -41,7 +49,7 @@ const ScanAttendance = () => {
 
     try {
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      const response = await axios.get(`http://localhost:5000/api/students/scan/${qrData}`, config);
+      const response = await axios.get(`${API_URL}/api/students/scan/${qrData}`, config);
       setStudent(response.data);
     } catch (err) {
       setError(err.response?.data?.message || 'Invalid QR Code or Student Not Found');
@@ -58,7 +66,7 @@ const ScanAttendance = () => {
     try {
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
       await axios.post(
-        'http://localhost:5000/api/attendance/mark',
+        `${API_URL}/api/attendance/mark`,
         { studentId: student.studentId, courseCode },
         config
       );
@@ -136,7 +144,7 @@ const ScanAttendance = () => {
               <div className="space-y-4">
                 <div className="flex items-center gap-4 bg-slate-900 p-4 rounded-xl border border-slate-700">
                   <img
-                    src={student.photoUrl || 'https://via.placeholder.com/80'}
+                    src={getPhotoSrc(student.photoUrl)}
                     alt="Student"
                     className="w-16 h-16 rounded-full object-cover border border-blue-500"
                   />

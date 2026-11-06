@@ -3,6 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';
 import axios from 'axios';
+import { API_URL } from '../config';
 
 const facultiesData = {
   "Faculty of Animal Science & Export Agriculture": [
@@ -28,6 +29,13 @@ const facultiesData = {
     "Entrepreneurship and Management Degree Programme",
     "Hospitality, Tourism and Events Management Degree Programme"
   ]
+};
+
+// Student photo URL එක backend URL එකට ගැලපෙන විදියට හදනවා
+const getPhotoSrc = (url) => {
+  if (!url) return 'https://via.placeholder.com/40';
+  if (url.startsWith('http')) return url.replace('http://localhost:5000', API_URL);
+  return `${API_URL}${url.startsWith('/') ? '' : '/'}${url}`;
 };
 
 const AdminDashboard = () => {
@@ -97,7 +105,7 @@ const AdminDashboard = () => {
   const fetchStudents = async () => {
     try {
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      const res = await axios.get('http://localhost:5000/api/students', config);
+      const res = await axios.get(`${API_URL}/api/students`, config);
       setStudentsList(res.data);
     } catch (err) {
       console.error(err);
@@ -107,7 +115,7 @@ const AdminDashboard = () => {
   const fetchAttendanceLogs = async () => {
     try {
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      const response = await axios.get('http://localhost:5000/api/attendance', config);
+      const response = await axios.get(`${API_URL}/api/attendance`, config);
       setAttendanceLogs(response.data);
     } catch (err) {
       console.error(err);
@@ -151,7 +159,7 @@ const AdminDashboard = () => {
         },
       };
 
-      await axios.post('http://localhost:5000/api/students', formData, config);
+      await axios.post(`${API_URL}/api/students`, formData, config);
 
       setMessage('Student added successfully!');
       fetchStudents();
@@ -169,7 +177,7 @@ const AdminDashboard = () => {
     try {
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
       await axios.post(
-        'http://localhost:5000/api/auth/register',
+        `${API_URL}/api/auth/register`,
         { name: newUserName, email: newUserEmail, password: newUserPassword, role: newUserRole },
         config
       );
@@ -509,7 +517,7 @@ const AdminDashboard = () => {
                     <tr key={stu._id} className="hover:bg-slate-750">
                       <td className="px-4 py-3">
                         <img
-                          src={stu.photoUrl || 'https://via.placeholder.com/40'}
+                          src={getPhotoSrc(stu.photoUrl)}
                           alt=""
                           className="w-10 h-10 rounded-full object-cover border border-slate-600"
                         />
