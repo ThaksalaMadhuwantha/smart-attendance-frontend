@@ -90,11 +90,11 @@ const ScanAttendance = () => {
           <h1 className="text-base sm:text-xl font-bold text-blue-400 leading-tight">Smart Attendance System</h1>
           <p className="text-xs text-slate-400">Invigilator Scanner Portal</p>
         </div>
-        <div className="flex items-center gap-2 sm:gap-4 shrink-0">
-          <span className="text-xs sm:text-sm font-medium text-slate-300 truncate max-w-[110px] sm:max-w-none">Invigilator: {user?.name}</span>
+        <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+          <span className="text-xs sm:text-sm font-medium text-slate-300 text-right leading-tight break-words min-w-0"><span className="hidden sm:inline">Invigilator: </span>{user?.name}</span>
           <button
             onClick={handleLogout}
-            className="bg-red-600/20 hover:bg-red-600 border border-red-500 text-red-400 hover:text-white px-3 py-1.5 rounded-lg text-sm transition"
+            className="bg-red-600/20 hover:bg-red-600 border border-red-500 text-red-400 hover:text-white px-3 py-1.5 rounded-lg text-sm transition shrink-0"
           >
             Logout
           </button>
