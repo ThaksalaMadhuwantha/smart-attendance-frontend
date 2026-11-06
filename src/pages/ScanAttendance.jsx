@@ -85,13 +85,13 @@ const ScanAttendance = () => {
 
   return (
     <div className="min-h-screen bg-slate-900 text-white">
-      <nav className="bg-slate-800 border-b border-slate-700 px-6 py-4 flex justify-between items-center">
+      <nav className="bg-slate-800 border-b border-slate-700 px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center gap-3 sticky top-0 z-20">
         <div>
-          <h1 className="text-xl font-bold text-blue-400">Smart Attendance System</h1>
+          <h1 className="text-base sm:text-xl font-bold text-blue-400 leading-tight">Smart Attendance System</h1>
           <p className="text-xs text-slate-400">Invigilator Scanner Portal</p>
         </div>
-        <div className="flex items-center gap-4">
-          <span className="text-sm font-medium text-slate-300">Invigilator: {user?.name}</span>
+        <div className="flex items-center gap-2 sm:gap-4 shrink-0">
+          <span className="text-xs sm:text-sm font-medium text-slate-300 truncate max-w-[110px] sm:max-w-none">Invigilator: {user?.name}</span>
           <button
             onClick={handleLogout}
             className="bg-red-600/20 hover:bg-red-600 border border-red-500 text-red-400 hover:text-white px-3 py-1.5 rounded-lg text-sm transition"
@@ -101,8 +101,8 @@ const ScanAttendance = () => {
         </div>
       </nav>
 
-      <div className="p-6 max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
-        <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-xl">
+      <div className="p-4 sm:p-6 max-w-4xl mx-auto grid md:grid-cols-2 gap-6 md:gap-8 animate-fade-in">
+        <div className="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-xl animate-fade-up">
           <h2 className="text-lg font-bold mb-4 text-blue-400 text-center">
             Scan Student QR Code
           </h2>
@@ -121,7 +121,7 @@ const ScanAttendance = () => {
               />
               <button
                 onClick={() => handleFetchStudent(scannedQR)}
-                className="bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm font-semibold rounded-lg"
+                className="bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm font-semibold rounded-lg transition active:scale-95"
               >
                 Fetch
               </button>
@@ -129,7 +129,7 @@ const ScanAttendance = () => {
           </div>
         </div>
 
-        <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-xl flex flex-col justify-between">
+        <div className="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-xl animate-fade-up delay-100 flex flex-col justify-between">
           <div>
             <h2 className="text-lg font-bold mb-4 text-blue-400 border-b border-slate-700 pb-2">
               Student Details & Eligibility
@@ -141,7 +141,7 @@ const ScanAttendance = () => {
             {loading && <p className="text-slate-400 text-center py-8">Fetching student records...</p>}
 
             {student && !loading && (
-              <div className="space-y-4">
+              <div className="space-y-4 animate-fade-up">
                 <div className="flex items-center gap-4 bg-slate-900 p-4 rounded-xl border border-slate-700">
                   <img
                     src={getPhotoSrc(student.photoUrl)}
@@ -184,7 +184,7 @@ const ScanAttendance = () => {
                           ) : course.isEligible ? (
                             <button
                               onClick={() => handleMarkAttendance(course.courseCode)}
-                              className="bg-green-600 hover:bg-green-500 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition shadow-lg shadow-green-600/20"
+                              className="bg-green-600 hover:bg-green-500 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition active:scale-95 shadow-lg shadow-green-600/20"
                             >
                               Mark Present
                             </button>

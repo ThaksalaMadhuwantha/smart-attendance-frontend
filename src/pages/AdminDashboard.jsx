@@ -236,13 +236,13 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-slate-900 text-white">
       {/* Navbar */}
-      <nav className="bg-slate-800 border-b border-slate-700 px-6 py-4 flex justify-between items-center print:hidden">
+      <nav className="bg-slate-800 border-b border-slate-700 px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center gap-3 sticky top-0 z-20 print:hidden">
         <div>
-          <h1 className="text-xl font-bold text-blue-400">Smart Attendance System</h1>
+          <h1 className="text-base sm:text-xl font-bold text-blue-400 leading-tight">Smart Attendance System</h1>
           <p className="text-xs text-slate-400">Student Affairs Admin Portal</p>
         </div>
-        <div className="flex items-center gap-4">
-          <span className="text-sm font-medium text-slate-300">Welcome, {user?.name}</span>
+        <div className="flex items-center gap-2 sm:gap-4 shrink-0">
+          <span className="text-xs sm:text-sm font-medium text-slate-300 truncate max-w-[90px] sm:max-w-none">Welcome, {user?.name}</span>
           <button
             onClick={handleLogout}
             className="bg-red-600/20 hover:bg-red-600 border border-red-500 text-red-400 hover:text-white px-3 py-1.5 rounded-lg text-sm transition"
@@ -253,11 +253,11 @@ const AdminDashboard = () => {
       </nav>
 
       {/* Main Content */}
-      <div className="p-6 max-w-7xl mx-auto">
-        <div className="flex flex-wrap gap-4 mb-6 border-b border-slate-700 pb-2 print:hidden">
+      <div className="p-4 sm:p-6 max-w-7xl mx-auto animate-fade-in">
+        <div className="flex gap-2 sm:gap-4 mb-6 border-b border-slate-700 pb-2 overflow-x-auto no-scrollbar print:hidden">
           <button
             onClick={() => setActiveTab('addStudent')}
-            className={`px-4 py-2 font-medium rounded-lg transition ${
+            className={`px-3 sm:px-4 py-2 text-sm sm:text-base whitespace-nowrap shrink-0 font-medium rounded-lg transition ${
               activeTab === 'addStudent' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -269,7 +269,7 @@ const AdminDashboard = () => {
               setActiveTab('viewStudents');
               fetchStudents();
             }}
-            className={`px-4 py-2 font-medium rounded-lg transition ${
+            className={`px-3 sm:px-4 py-2 text-sm sm:text-base whitespace-nowrap shrink-0 font-medium rounded-lg transition ${
               activeTab === 'viewStudents' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -279,7 +279,7 @@ const AdminDashboard = () => {
           {user?.email === 'admin@university.ac.lk' && (
             <button
               onClick={() => setActiveTab('addUser')}
-              className={`px-4 py-2 font-medium rounded-lg transition ${
+              className={`px-3 sm:px-4 py-2 text-sm sm:text-base whitespace-nowrap shrink-0 font-medium rounded-lg transition ${
                 activeTab === 'addUser' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -292,7 +292,7 @@ const AdminDashboard = () => {
               setActiveTab('attendance');
               fetchAttendanceLogs();
             }}
-            className={`px-4 py-2 font-medium rounded-lg transition ${
+            className={`px-3 sm:px-4 py-2 text-sm sm:text-base whitespace-nowrap shrink-0 font-medium rounded-lg transition ${
               activeTab === 'attendance' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -302,8 +302,8 @@ const AdminDashboard = () => {
 
         {/* TAB 1: Add Student */}
         {activeTab === 'addStudent' && (
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-xl print:hidden">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+            <div className="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-xl animate-fade-up print:hidden">
               <h2 className="text-xl font-bold mb-4 text-blue-400">Register Student & Generate QR</h2>
               
               {message && <div className="bg-green-500/10 border border-green-500 text-green-400 p-3 rounded-lg mb-4 text-sm">{message}</div>}
@@ -360,7 +360,7 @@ const AdminDashboard = () => {
                   </select>
                 </div>
 
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div>
                     <label className="block text-xs font-medium text-slate-400 mb-1">Academic Year</label>
                     <input
@@ -397,14 +397,14 @@ const AdminDashboard = () => {
                 <div className="mt-4">
                   <label className="block text-xs font-medium text-slate-400 mb-2">Registered Courses & Eligibility</label>
                   {courses.map((c, i) => (
-                    <div key={i} className="flex gap-2 mb-2 items-center">
+                    <div key={i} className="flex flex-wrap sm:flex-nowrap gap-2 mb-2 items-center">
                       <input
                         type="text"
                         placeholder="Code (ICT2101)"
                         value={c.courseCode}
                         onChange={(e) => handleCourseChange(i, 'courseCode', e.target.value)}
                         required
-                        className="w-1/3 px-2 py-1.5 bg-slate-900 border border-slate-700 rounded text-sm text-white"
+                        className="w-full sm:w-1/3 px-2 py-1.5 bg-slate-900 border border-slate-700 rounded text-sm text-white"
                       />
                       <input
                         type="text"
@@ -412,7 +412,7 @@ const AdminDashboard = () => {
                         value={c.courseName}
                         onChange={(e) => handleCourseChange(i, 'courseName', e.target.value)}
                         required
-                        className="w-1/2 px-2 py-1.5 bg-slate-900 border border-slate-700 rounded text-sm text-white"
+                        className="w-full sm:w-1/2 px-2 py-1.5 bg-slate-900 border border-slate-700 rounded text-sm text-white"
                       />
                       <label className="flex items-center text-xs text-slate-300 gap-1 cursor-pointer">
                         <input
@@ -436,7 +436,7 @@ const AdminDashboard = () => {
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-500 font-semibold py-2.5 rounded-lg transition mt-4"
+                  className="w-full bg-blue-600 hover:bg-blue-500 font-semibold py-2.5 rounded-lg transition active:scale-[0.98] mt-4"
                 >
                   Generate QR & Save Student
                 </button>
@@ -444,14 +444,14 @@ const AdminDashboard = () => {
             </div>
 
             {/* Live QR Preview */}
-            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-xl flex flex-col items-center justify-center text-center print:bg-white print:text-black print:border-none print:shadow-none print:p-0">
+            <div className="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-xl animate-fade-up delay-100 flex flex-col items-center justify-center text-center print:bg-white print:text-black print:border-none print:shadow-none print:p-0">
               <h3 className="text-lg font-bold text-slate-300 mb-4 print:text-black">
                 Exam Admission Pass Preview
               </h3>
 
               {studentId ? (
                 <div className="flex flex-col items-center">
-                  <div ref={qrRef} className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 text-black flex flex-col items-center w-80">
+                  <div ref={qrRef} className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 text-black flex flex-col items-center w-full max-w-xs">
                     <div className="text-xs font-bold text-blue-800 uppercase tracking-widest mb-2">
                       University Exam Pass
                     </div>
@@ -499,10 +499,10 @@ const AdminDashboard = () => {
 
         {/* TAB 2: View Students List */}
         {activeTab === 'viewStudents' && (
-          <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-xl">
+          <div className="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-xl animate-fade-up">
             <h2 className="text-xl font-bold text-blue-400 mb-4">Registered Students Directory</h2>
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-sm text-slate-300">
+              <table className="w-full min-w-[640px] text-left text-sm text-slate-300">
                 <thead className="bg-slate-900 text-slate-400 uppercase text-xs">
                   <tr>
                     <th className="px-4 py-3">Photo</th>
@@ -514,7 +514,7 @@ const AdminDashboard = () => {
                 </thead>
                 <tbody className="divide-y divide-slate-700">
                   {studentsList.map((stu) => (
-                    <tr key={stu._id} className="hover:bg-slate-750">
+                    <tr key={stu._id} className="hover:bg-slate-700/40 transition-colors">
                       <td className="px-4 py-3">
                         <img
                           src={getPhotoSrc(stu.photoUrl)}
@@ -544,7 +544,7 @@ const AdminDashboard = () => {
 
         {/* TAB 3: User Management (Super Admin Only) */}
         {activeTab === 'addUser' && user?.email === 'admin@university.ac.lk' && (
-          <div className="max-w-xl mx-auto bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-xl">
+          <div className="max-w-xl mx-auto bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-xl animate-fade-up">
             <h2 className="text-xl font-bold mb-4 text-blue-400">Register New System User</h2>
             
             {userMessage && <div className="bg-green-500/10 border border-green-500 text-green-400 p-3 rounded-lg mb-4 text-sm">{userMessage}</div>}
@@ -604,12 +604,12 @@ const AdminDashboard = () => {
 
         {/* TAB 4: Real-Time Attendance Logs (Organized by Faculty & Degree Filters) */}
         {activeTab === 'attendance' && (
-          <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-xl">
+          <div className="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-xl animate-fade-up">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
               <h2 className="text-xl font-bold text-blue-400">Live Exam Attendance Logs</h2>
               
               {/* Faculty & Degree Filters */}
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 w-full md:w-auto">
                 <select
                   value={selectedFacultyFilter}
                   onChange={(e) => {
@@ -647,7 +647,7 @@ const AdminDashboard = () => {
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-sm text-slate-300">
+              <table className="w-full min-w-[640px] text-left text-sm text-slate-300">
                 <thead className="bg-slate-900 text-slate-400 uppercase text-xs">
                   <tr>
                     <th className="px-4 py-3">Student ID</th>
@@ -664,7 +664,7 @@ const AdminDashboard = () => {
                     const logDate = new Date(log.createdAt || log.markedAt);
                     const stu = log.student;
                     return (
-                      <tr key={log._id} className="hover:bg-slate-750">
+                      <tr key={log._id} className="hover:bg-slate-700/40 transition-colors">
                         <td className="px-4 py-3 font-mono text-blue-400">{log.studentId}</td>
                         <td className="px-4 py-3 font-semibold">{stu?.name || 'N/A'}</td>
                         <td className="px-4 py-3">
